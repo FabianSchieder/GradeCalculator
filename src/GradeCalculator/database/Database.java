@@ -9,15 +9,18 @@ import java.io.BufferedReader;
 
 public class Database
 {
+    private static String path;
     private static Vector<String> m_subjects;
-    private static Vector<String> m_grades;
+    private static Vector<Float> m_grades;
 
-    public Database()
+    public Database(String inputPath)
     {
-
+        m_subjects = new Vector<>();
+        m_grades = new Vector<>();
+        path = inputPath;
     }
 
-    public static void addSubject(String name, String grade)
+    public static void addSubject(String name, Float grade)
     {
         m_subjects.add(name);
         m_grades.add(grade);
@@ -25,7 +28,7 @@ public class Database
 
     public static void writeFile() throws IOException
     {
-        FileWriter writer = new FileWriter("grades.txt", true);
+        FileWriter writer = new FileWriter(path, false); // false to overwrite the file
 
         for (int i = 0; i < m_subjects.size(); i++)
         {
@@ -52,7 +55,7 @@ public class Database
             }
             else
             {
-                m_grades.add(line);
+                m_grades.add(Float.parseFloat(line));
                 isSubject = true;
             }
         }
@@ -68,7 +71,7 @@ public class Database
         }
     }
 
-    public static void setGrade(String subject, String grade)
+    public static void setGrade(String subject, float grade)
     {
         for (int i = 0; i < m_subjects.size(); i++)
         {
@@ -77,5 +80,34 @@ public class Database
                 m_grades.set(i, grade);
             }
         }
+    }
+
+    public static float calculateAverage()
+    {
+        float total = 0;
+        for(int i = 0; i < m_subjects.size(); i++)
+        {
+            total += m_grades.get(i);
+        }
+
+        return total / (float)m_subjects.size();
+    }
+
+    public static boolean isPositive()
+    {
+        for (int i = 0; i < m_grades.size(); i++)
+        {
+            if (m_grades.get(i) < 4.0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static void setPath(String path)
+    {
+        Database.path = path;
     }
 }
