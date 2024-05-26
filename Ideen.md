@@ -1,3 +1,3 @@
-# Ideen für die Notenliste #
+# Ideen & TODOs für die Notenliste #
 
 - [ ] Aufzählunhspunkte...
