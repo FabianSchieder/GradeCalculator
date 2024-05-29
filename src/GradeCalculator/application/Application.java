@@ -1,6 +1,5 @@
 package GradeCalculator.application;
 
-
 import GradeCalculator.database.Database;
 import GradeCalculator.menu.Menu;
 
